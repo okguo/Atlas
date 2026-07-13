@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="atlas-plugin-llm" />
+        <module name="atlas-workflow" />
+        <module name="atlas-core" />
+        <module name="atlas-plugin-api" />
+        <module name="atlas-agent" />
+        <module name="atlas-plugin-tts" />
+        <module name="atlas-api" />
+        <module name="atlas-storage" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

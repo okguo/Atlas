@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atlas.storage.repository.ArtifactMapper">
+
+    <resultMap id="BaseResultMap" type="com.atlas.core.artifact.Artifact">
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="task_id" property="taskId"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="mime_type" property="mimeType"/>
+        <result column="storage_path" property="storagePath"/>
+        <result column="size" property="size"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="metadata" property="metadata" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, project_id, task_id, name, type, mime_type, storage_path, size, created_at, metadata
+    </sql>
+
+    <select id="selectByProjectId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM artifact
+        WHERE project_id = #{projectId}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="selectByTaskId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM artifact
+        WHERE task_id = #{taskId}
+    </select>
+
+    <select id="selectByType" parameterType="com.atlas.core.artifact.Artifact$ArtifactType" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM artifact
+        WHERE type = #{type}
+    </select>
+
+</mapper>

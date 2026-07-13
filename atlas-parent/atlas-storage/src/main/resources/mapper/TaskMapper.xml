@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atlas.storage.repository.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.atlas.core.task.Task">
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="workflow_id" property="workflowId"/>
+        <result column="agent_name" property="agentName"/>
+        <result column="status" property="status"/>
+        <result column="inputs" property="inputs" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="outputs" property="outputs" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="error_message" property="errorMessage"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="started_at" property="startedAt"/>
+        <result column="completed_at" property="completedAt"/>
+        <result column="retry_count" property="retryCount"/>
+        <result column="parent_task_id" property="parentTaskId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, project_id, workflow_id, agent_name, status, inputs, outputs, 
+        error_message, created_at, started_at, completed_at, retry_count, parent_task_id
+    </sql>
+
+    <select id="selectByProjectId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM task
+        WHERE project_id = #{projectId}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="selectByStatus" parameterType="com.atlas.core.task.Task$TaskStatus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM task
+        WHERE status = #{status}
+    </select>
+
+    <select id="selectByWorkflowId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM task
+        WHERE workflow_id = #{workflowId}
+        ORDER BY created_at ASC
+    </select>
+
+</mapper>
