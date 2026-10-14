@@ -1,0 +1,33 @@
+atlas:
+  name: Atlas
+  mode: local-first
+  workspace: ${ATLAS_WORKSPACE:./workspace}
+
+services:
+  doubaoTts:
+    enabled: false
+    baseUrl: ${DOUBAO_TTS_BASE_URL:}
+    apiKey: ${DOUBAO_TTS_API_KEY:}
+    resourceId: ${DOUBAO_TTS_RESOURCE_ID:}
+    timeoutSeconds: 120
+
+  pixabay:
+    enabled: false
+    baseUrl: https://pixabay.com/api/
+    apiKey: ${PIXABAY_API_KEY:}
+    timeoutSeconds: 30
+
+  comfyui:
+    enabled: false
+    baseUrl: ${COMFYUI_BASE_URL:http://127.0.0.1:8188}
+    timeoutSeconds: 300
+
+  ffmpeg:
+    enabled: false
+    executable: ffmpeg
+
+workflow:
+  # First milestone: script -> voice -> assets -> images -> render
+  maxConcurrentTasks: 1
+  requireHumanApprovalBeforeRender: true
+  keepIntermediateFiles: true
